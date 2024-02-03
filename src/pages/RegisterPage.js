@@ -1,4 +1,4 @@
-// RegisterForm.js
+import { Link } from "react-router-dom";
 import React, { useState } from "react";
 
 const RegisterPage = () => {
@@ -60,6 +60,13 @@ const RegisterPage = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
+        <Link to="/login" className="cursor-pointer">
+          <div className="flex items-center mb-4">
+            <label htmlFor="isNewUser" className="text-gray-600 cursor-pointer">
+              Already a User? Login
+            </label>
+          </div>
+        </Link>
         <button
           className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600"
           onClick={handleRegister}
