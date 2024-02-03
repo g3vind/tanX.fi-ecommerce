@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Product from "./Product";
 import { Link } from "react-router-dom";
+import CardShimmer from "./CardShimmer";
 
 const ProductCard = () => {
   const [productsData, setProductsData] = useState([]);
@@ -18,7 +19,9 @@ const ProductCard = () => {
       console.log("Error in fetching data from API", error);
     }
   };
-
+  if (productsData.length === 0) {
+    return <CardShimmer />;
+  }
   return (
     <div className="flex flex-wrap justify-center items-center gap-6 m-6 py-4 my-4">
       {productsData.map((product) => (
