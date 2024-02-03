@@ -6,10 +6,10 @@
 
 ## Technologies and Packages Used
 
-1. **Redux Toolkit:** For efficient state management, including features like adding to cart and favorites.
-2. **Auth0:** Providing secure authentication for user login and signup.
-3. **TailwindCSS:** Utilized for a sleek and responsive CSS framework.
-4. **React Router DOM:** Enabling client-side routing for a smooth user experience.
+1. **Redux Toolkit:** Efficient state management for features like adding to cart and favorites.
+2. **Auth0:** Secure authentication for user login and signup.
+3. **TailwindCSS:** Sleek and responsive CSS framework.
+4. **React Router DOM:** Client-side routing for a smooth user experience.
 5. **React Icons:** Integration for a wide range of icons.
 
 ## Features
@@ -53,6 +53,18 @@
 ### 8. Empty Favorites Page (Shown when the user has no favorite items)
 
 ![Empty Favorites Page](https://github.com/g3vind/tanX.fi-ecommerce/assets/70854788/7379c2b8-2f1c-4637-8ce2-1561550f1e40)
+
+## Possible Improvements 
+
+1. **Lazy Loading:** Enhance performance with lazy loading of assets.
+2. **CSS Animations:** Add engaging animations for a more dynamic interface.
+3. **Toastifiers:** Implement toast notifications for a better user feedback experience.
+
+## If there was more time then
+
+1. **Proper Login/Signup:** Develop a custom login/signup system without relying on external APIs like Auth0.
+2. **User Authorization and Protected Routes:** Implement proper user authorization and protect sensitive routes.
+3. **Using a database instead of JSON Server** As json server are slow so using a database like mongodb or postgresql would've been good.
 
 ## Project Structure
 
