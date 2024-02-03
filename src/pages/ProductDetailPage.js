@@ -38,9 +38,9 @@ const ProductDetailPage = () => {
   }, [id]);
 
   const handleAddToCart = () => {
-    // Dispatch the addToCart action with product details
     dispatch(
       addToCart({
+        id: productDetail?.id,
         title: productDetail?.title,
         image: productDetail?.image,
         amount: productDetail?.amount,
@@ -51,6 +51,7 @@ const ProductDetailPage = () => {
   const handleBuyNow = () => {
     dispatch(
       addToCart({
+        id: productDetail?.id,
         title: productDetail?.title,
         image: productDetail?.image,
         amount: productDetail?.amount,

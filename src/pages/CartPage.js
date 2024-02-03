@@ -2,8 +2,12 @@ import { Trash } from "lucide-react";
 import React from "react";
 import { useSelector } from "react-redux";
 import EmptyCart from "../components/EmptyCart";
+import { useDispatch } from "react-redux";
+import { removeFromCart } from "../features/cartSlice";
 
 export default function CartPage() {
+  const dispatch = useDispatch();
+
   const cartItems = useSelector((state) => state.cart.cart);
   const handlePlaceOrder = (e) => {
     e.preventDefault();
@@ -74,6 +78,10 @@ export default function CartPage() {
                   </div>
                   <div className="ml-6 flex text-sm">
                     <button
+                      onClick={() => {
+                        console.log("Removing from cart:", product);
+                        dispatch(removeFromCart(product.id));
+                      }}
                       type="button"
                       className="flex items-center space-x-1 px-2 py-1 pl-0"
                     >
