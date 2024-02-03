@@ -1,17 +1,52 @@
 import { Trash } from "lucide-react";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import EmptyCart from "../components/EmptyCart";
 import { useDispatch } from "react-redux";
-import { removeFromCart, updateQuantity } from "../features/cartSlice";
+import {
+  removeFromCart,
+  updateQuantity,
+  clearCart,
+} from "../features/cartSlice";
+import { Link } from "react-router-dom";
 
 export default function CartPage() {
   const dispatch = useDispatch();
+  const [orderSummary, setOrderSummary] = useState({
+    totalPrice: 0,
+    discount: 50,
+    deliveryCharges: 0,
+    totalAmount: 0,
+    savings: 0,
+  });
 
   const cartItems = useSelector((state) => state.cart.cart);
+
+  const calculateOrderSummary = () => {
+    const totalPrice = cartItems.reduce((total, item) => {
+      return total + item.amount * item.quantity;
+    }, 0);
+    const discount = cartItems.reduce((total, item) => {
+      return total + item.discount * item.quantity;
+    }, 0);
+
+    const deliveryCharges = 50;
+    const totalAmount = totalPrice - deliveryCharges;
+
+    setOrderSummary({
+      totalPrice,
+      discount,
+      deliveryCharges,
+      totalAmount,
+      savings: discount,
+    });
+  };
+
   const handlePlaceOrder = (e) => {
+    dispatch(clearCart());
     e.preventDefault();
   };
+
   const handleIncrement = (id) => {
     dispatch(updateQuantity({ id, quantity: 1 }));
   };
@@ -20,9 +55,14 @@ export default function CartPage() {
     dispatch(updateQuantity({ id, quantity: -1 }));
   };
 
+  useEffect(() => {
+    calculateOrderSummary();
+  }, [cartItems]);
+
   if (cartItems.length === 0) {
     return <EmptyCart />;
   }
+
   return (
     <div className="mx-auto max-w-7xl px-2 lg:px-0">
       <div className="mx-auto max-w-2xl py-8 lg:max-w-5xl">
@@ -35,6 +75,12 @@ export default function CartPage() {
             aria-labelledby="cart-heading"
             className="rounded-lg bg-white lg:col-span-8"
           >
+            <button
+              onClick={() => dispatch(clearCart())}
+              className="bg-red-500 h-8 w-32 text-white ml-[532px] rounded-xl mb-2 -mt-10"
+            >
+              Clear Cart
+            </button>
             {cartItems?.map((product) => (
               <div key={product.id} className="bg-gray-200 p-4">
                 <li className="flex py-6 sm:py-6 ">
@@ -121,44 +167,40 @@ export default function CartPage() {
             <div>
               <dl className=" space-y-1 px-2 py-4">
                 <div className="flex items-center justify-between">
-                  <dt className="text-sm text-gray-800">Price (3 item)</dt>
-                  <dd className="text-sm font-medium text-gray-900">
-                    ₹ 52,398
-                  </dd>
-                </div>
-                <div className="flex items-center justify-between pt-4">
-                  <dt className="flex items-center text-sm text-gray-800">
-                    <span>Discount</span>
+                  <dt className="text-sm text-gray-800">
+                    Price ({cartItems.length} items)
                   </dt>
-                  <dd className="text-sm font-medium text-green-700">
-                    - ₹ 3,431
+                  <dd className="text-sm font-medium text-gray-900">
+                    ₹ {orderSummary.totalPrice}
                   </dd>
                 </div>
+
                 <div className="flex items-center justify-between py-4">
                   <dt className="flex text-sm text-gray-800">
                     <span>Delivery Charges</span>
                   </dt>
-                  <dd className="text-sm font-medium text-green-700">Free</dd>
+                  <dd className="text-sm font-medium text-green-700">
+                    ₹ {orderSummary.deliveryCharges}
+                  </dd>
                 </div>
                 <div className="flex items-center justify-between border-y border-dashed py-4 ">
                   <dt className="text-base font-medium text-gray-900">
                     Total Amount
                   </dt>
                   <dd className="text-base font-medium text-gray-900">
-                    ₹ 48,967
+                    ₹ {orderSummary.totalAmount}
                   </dd>
                 </div>
               </dl>
-              <div className="px-2 pb-4 font-medium text-green-700">
-                You will save ₹ 3,431 on this order
-              </div>
             </div>
-            <button
-              onClick={handlePlaceOrder}
-              className="bg-blue-500 h-8 w-32 rounded-lg my-2"
-            >
-              Place Order
-            </button>
+            <Link to="/thankyou">
+              <button
+                onClick={handlePlaceOrder}
+                className="bg-blue-500 ml-16 h-10 w-32 rounded-lg my-2"
+              >
+                Place Order
+              </button>
+            </Link>
           </section>
         </form>
       </div>

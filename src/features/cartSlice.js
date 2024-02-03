@@ -1,4 +1,3 @@
-// cartSlice.js
 import { createSlice } from "@reduxjs/toolkit";
 
 const cartSlice = createSlice({
@@ -14,7 +13,6 @@ const cartSlice = createSlice({
       if (existingItem) {
         existingItem.quantity += newItem.quantity || 1;
       } else {
-        // Set a default quantity of 1 if not provided
         newItem.quantity = newItem.quantity || 1;
         state.cart.push(newItem);
       }
@@ -27,14 +25,17 @@ const cartSlice = createSlice({
       const itemToUpdate = state.cart.find((item) => item.id === id);
 
       if (itemToUpdate) {
-        // Ensure quantity is a number and not NaN
         itemToUpdate.quantity = Number.isNaN(quantity)
           ? 1
           : itemToUpdate.quantity + quantity;
       }
     },
+    clearCart: (state) => {
+      state.cart = [];
+    },
   },
 });
 
 export default cartSlice.reducer;
-export const { addToCart, removeFromCart, updateQuantity } = cartSlice.actions;
+export const { addToCart, removeFromCart, updateQuantity, clearCart } =
+  cartSlice.actions;
