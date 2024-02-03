@@ -1,8 +1,14 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import EmptyFavorites from "../components/EmptyFavorites";
 
 const FavoritesPage = () => {
   const favItems = useSelector((state) => state.favorite.favorites);
+
+  // Early Return
+  if (favItems.length === 0) {
+    return <EmptyFavorites />;
+  }
 
   return (
     <>
