@@ -1,4 +1,3 @@
-// FavoritesPage.js
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { removeFromFavorite } from "../features/favoriteSlice";
@@ -40,7 +39,7 @@ const FavoritesPage = () => {
               <p className="m-4 text-center">₹{favItem.amount}</p>
               <button
                 onClick={() => handleRemoveFavorite(favItem.id)}
-                className="bg-red-500 text-white p-2 rounded"
+                className="bg-red-500 mt-2 text-white p-2 rounded"
               >
                 Remove from Favorites
               </button>

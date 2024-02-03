@@ -195,7 +195,7 @@ export default function CartPage() {
             </div>
             <Link to="/thankyou">
               <button
-                onClick={handlePlaceOrder}
+                onClick={() => handlePlaceOrder()}
                 className="bg-blue-500 ml-16 h-10 w-32 rounded-lg my-2"
               >
                 Place Order
