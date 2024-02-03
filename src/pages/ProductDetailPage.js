@@ -4,6 +4,7 @@ import { IoHeartSharp, IoHeartOutline } from "react-icons/io5";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../features/cartSlice";
 import { addToFavorite } from "../features/favoriteSlice";
+import { Link } from "react-router-dom";
 
 const ProductDetailPage = () => {
   const dispatch = useDispatch();
@@ -47,6 +48,16 @@ const ProductDetailPage = () => {
       })
     );
   };
+  const handleBuyNow = () => {
+    dispatch(
+      addToCart({
+        title: productDetail?.title,
+        image: productDetail?.image,
+        amount: productDetail?.amount,
+        rating: productDetail?.rating,
+      })
+    );
+  };
   return (
     <section className="overflow-hidden">
       <div className="mx-auto max-w-5xl px-5 py-12">
@@ -78,9 +89,14 @@ const ProductDetailPage = () => {
               </div>
             </div>
             <div className="flex items-center justify-between">
-              <button className="h-10 w-40 border-2 border-black text-black bg-white">
-                Buy Now
-              </button>
+              <Link to="/cart">
+                <button
+                  onClick={handleBuyNow}
+                  className="h-10 w-40 border-2 border-black text-black bg-white"
+                >
+                  Buy Now
+                </button>
+              </Link>
 
               <button
                 onClick={handleAddToCart}
