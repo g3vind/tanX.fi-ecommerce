@@ -10,7 +10,9 @@ const Header = () => {
         </Link>
       </div>
       <div className="flex justify-center items-center gap-8 text-white">
-        <p>Products</p>
+        <Link to="/">
+          <p>Products</p>
+        </Link>
 
         <Link to="/login">
           <p>Login</p>
