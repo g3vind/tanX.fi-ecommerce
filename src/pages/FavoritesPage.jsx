@@ -1,14 +1,21 @@
+// FavoritesPage.js
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { removeFromFavorite } from "../features/favoriteSlice";
 import EmptyFavorites from "../components/EmptyFavorites";
 
 const FavoritesPage = () => {
+  const dispatch = useDispatch();
   const favItems = useSelector((state) => state.favorite.favorites);
 
   // Early Return
   if (favItems.length === 0) {
     return <EmptyFavorites />;
   }
+
+  const handleRemoveFavorite = (itemId) => {
+    dispatch(removeFromFavorite(itemId));
+  };
 
   return (
     <>
@@ -31,6 +38,12 @@ const FavoritesPage = () => {
             <div className="flex flex-col">
               <h3 className="font-light m-2 text-center">{favItem.title}</h3>
               <p className="m-4 text-center">₹{favItem.amount}</p>
+              <button
+                onClick={() => handleRemoveFavorite(favItem.id)}
+                className="bg-red-500 text-white p-2 rounded"
+              >
+                Remove from Favorites
+              </button>
             </div>
           </div>
         ))}

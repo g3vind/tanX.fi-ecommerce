@@ -15,6 +15,7 @@ const ProductDetailPage = () => {
   const handleFavourite = () => {
     dispatch(
       addToFavorite({
+        id: productDetail?.id,
         title: productDetail?.title,
         image: productDetail?.image,
         amount: productDetail?.amount,
