@@ -3,7 +3,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import EmptyCart from "../components/EmptyCart";
 import { useDispatch } from "react-redux";
-import { removeFromCart } from "../features/cartSlice";
+import { removeFromCart, updateQuantity } from "../features/cartSlice";
 
 export default function CartPage() {
   const dispatch = useDispatch();
@@ -11,6 +11,13 @@ export default function CartPage() {
   const cartItems = useSelector((state) => state.cart.cart);
   const handlePlaceOrder = (e) => {
     e.preventDefault();
+  };
+  const handleIncrement = (id) => {
+    dispatch(updateQuantity({ id, quantity: 1 }));
+  };
+
+  const handleDecrement = (id) => {
+    dispatch(updateQuantity({ id, quantity: -1 }));
   };
 
   if (cartItems.length === 0) {
@@ -61,15 +68,20 @@ export default function CartPage() {
                 </li>
                 <div className="mb-2 flex">
                   <div className="min-w-24 flex">
-                    <button type="button" className="h-7 w-7">
+                    <button
+                      onClick={() => handleDecrement(product.id)}
+                      type="button"
+                      className="h-7 w-7"
+                    >
                       -
                     </button>
                     <input
                       type="text"
                       className="mx-1 h-7 w-9 rounded-md border text-center"
-                      defaultValue={1}
+                      value={product.quantity}
                     />
                     <button
+                      onClick={() => handleIncrement(product.id)}
                       type="button"
                       className="flex h-7 w-7 items-center justify-center"
                     >
