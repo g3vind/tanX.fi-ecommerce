@@ -35,7 +35,7 @@ const ProductDetailPage = () => {
     const fetchProductDetail = async () => {
       try {
         const response = await fetch(
-          `https://tanxfi-data.onrender.com/products{id}`
+          `https://tanxfi-data.onrender.com/products/${id}`
         );
         const data = await response.json();
         setProductDetail(data);
