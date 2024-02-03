@@ -1,33 +1,35 @@
 import { Trash } from "lucide-react";
 import React from "react";
-
-const products = [];
+import { useSelector } from "react-redux";
+import EmptyCart from "../components/EmptyCart";
 
 export default function CartPage() {
+  const cartItems = useSelector((state) => state.cart.cart);
   const handlePlaceOrder = (e) => {
     e.preventDefault();
   };
+
+  if (cartItems.length === 0) {
+    return <EmptyCart />;
+  }
   return (
     <div className="mx-auto max-w-7xl px-2 lg:px-0">
       <div className="mx-auto max-w-2xl py-8 lg:max-w-5xl">
-        <h1 className="text-xl font-bold tracking-tight text-gray-900 sm:text-xl">
-          My Cart
+        <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-2xl">
+          My Cart ({cartItems.length})
         </h1>
+
         <form className="mt-12 lg:grid lg:grid-cols-12 lg:items-start lg:gap-x-12 xl:gap-x-16">
           <section
             aria-labelledby="cart-heading"
             className="rounded-lg bg-white lg:col-span-8"
           >
-            <h2 id="cart-heading" className="sr-only">
-              Items in your shopping cart
-            </h2>
-
-            {products?.map((product, productIdx) => (
+            {cartItems?.map((product) => (
               <div key={product.id} className="">
                 <li className="flex py-6 sm:py-6 ">
                   <div className="flex-shrink-0">
                     <img
-                      src={product.imageSrc}
+                      src={product.image}
                       alt={product.name}
                       className="sm:h-38 sm:w-38 h-24 w-24 rounded-md object-contain object-center"
                     />
@@ -37,31 +39,12 @@ export default function CartPage() {
                     <div className="relative pr-9 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:pr-0">
                       <div>
                         <div className="flex justify-between">
-                          <h3 className="text-sm">
-                            <a
-                              href={product.href}
-                              className="font-semibold text-black"
-                            >
-                              {product.name}
-                            </a>
-                          </h3>
+                          <h3 className="text-sm">{product.title}</h3>
                         </div>
-                        <div className="mt-1 flex text-sm">
-                          <p className="text-sm text-gray-500">
-                            {product.color}
-                          </p>
-                          {product.size ? (
-                            <p className="ml-4 border-l border-gray-200 pl-4 text-sm text-gray-500">
-                              {product.size}
-                            </p>
-                          ) : null}
-                        </div>
+
                         <div className="mt-1 flex items-end">
-                          <p className="text-xs font-medium text-gray-500 line-through">
-                            {product.originalPrice}
-                          </p>
                           <p className="text-sm font-medium text-gray-900">
-                            &nbsp;&nbsp;{product.price}
+                            ₹&nbsp;{product.amount}
                           </p>
                           &nbsp;&nbsp;
                           <p className="text-sm font-medium text-green-500">

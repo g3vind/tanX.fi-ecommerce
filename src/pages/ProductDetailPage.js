@@ -1,14 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { IoHeartSharp, IoHeartOutline } from "react-icons/io5";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../features/cartSlice";
+import { addToFavorite } from "../features/favoriteSlice";
 
 const ProductDetailPage = () => {
+  const dispatch = useDispatch();
   const { id } = useParams();
   const [productDetail, setProductDetail] = useState([]);
   const [isFavourite, setIsFavourite] = useState(false);
 
   const handleFavourite = () => {
-    setIsFavourite(!isFavourite);
+    dispatch(
+      addToFavorite({
+        title: productDetail?.title,
+        image: productDetail?.image,
+        amount: productDetail?.amount,
+      })
+    );
+    setIsFavourite(true);
   };
 
   useEffect(() => {
@@ -24,6 +35,18 @@ const ProductDetailPage = () => {
 
     fetchProductDetail();
   }, [id]);
+
+  const handleAddToCart = () => {
+    // Dispatch the addToCart action with product details
+    dispatch(
+      addToCart({
+        title: productDetail?.title,
+        image: productDetail?.image,
+        amount: productDetail?.amount,
+        rating: productDetail?.rating,
+      })
+    );
+  };
   return (
     <section className="overflow-hidden">
       <div className="mx-auto max-w-5xl px-5 py-12">
@@ -59,7 +82,10 @@ const ProductDetailPage = () => {
                 Buy Now
               </button>
 
-              <button className="bg-black text-white h-10 w-40">
+              <button
+                onClick={handleAddToCart}
+                className="bg-black text-white h-10 w-40"
+              >
                 Add to Basket
               </button>
             </div>
