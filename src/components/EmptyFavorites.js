@@ -5,7 +5,7 @@ const EmptyFavorites = () => {
   return (
     <div className="flex flex-col justify-center items-center">
       <h2 className="text-4xl text-red-500 font-bold mt-4">
-        No Favorite Items
+        No Favorite Items Currently
       </h2>
       <img
         src="https://static.thenounproject.com/png/152176-200.png"

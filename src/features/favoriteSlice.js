@@ -10,13 +10,11 @@ const favoriteSlice = createSlice({
     addToFavorite: (state, action) => {
       const newItem = action.payload;
 
-      // Check if the item with the same ID already exists
       const existingItem = state.favorites.find(
         (item) => item.id === newItem.id
       );
 
       if (!existingItem) {
-        // Add the new item to favorites
         state.favorites.push(newItem);
       }
     },
