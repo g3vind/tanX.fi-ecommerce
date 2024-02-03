@@ -20,13 +20,15 @@ const Product = ({ product }) => {
         <img
           src={product.image}
           alt={product.title}
-          className="object-cover h-[200px] w-32"
+          className="object-cover h-[130px] w-32"
         />
       </div>
       <div className="flex flex-col">
         <h3 className="font-light m-2 text-center">{product?.title}</h3>
         <p className="m-4">₹{product?.amount}</p>
-        <p className="m-4 -mt-2">{product?.rating}</p>
+        <span className="h-7 text-center p-1 w-8 m-4 -mt-1 bg-green-500 text-white">
+          {product?.rating}
+        </span>
       </div>
 
       <div className="flex gap-16">

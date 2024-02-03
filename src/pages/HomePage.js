@@ -1,5 +1,5 @@
 import React from "react";
-import ProductCards from "../components/ProductCards";
+import ProductCards from "../components/ProductCard";
 
 const HomePage = () => {
   return (

@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Product from "./Product";
+import { Link } from "react-router-dom";
 
 const ProductCard = () => {
   const [productsData, setProductsData] = useState([]);
 
   useEffect(() => {
     fetchData();
-  });
+  }, []);
 
   const fetchData = async () => {
     try {
@@ -21,9 +22,11 @@ const ProductCard = () => {
   return (
     <div className="flex flex-wrap justify-center items-center gap-6 m-6 py-4 my-4">
       {productsData.map((product) => (
-        <div key={product.id}>
-          <Product product={product} />
-        </div>
+        <Link key={product.id} to={`/product/${product.id}`}>
+          <div>
+            <Product product={product} />
+          </div>
+        </Link>
       ))}
     </div>
   );
