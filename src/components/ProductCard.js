@@ -11,7 +11,7 @@ const ProductCard = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch("http://localhost:8080/products");
+      const response = await fetch("https://tanxfi-data.onrender.com/products");
       const data = await response.json();
       setProductsData(data);
     } catch (error) {

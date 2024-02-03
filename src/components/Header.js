@@ -6,7 +6,8 @@ import { FaHeart } from "react-icons/fa";
 import { useAuth0 } from "@auth0/auth0-react";
 
 const Header = () => {
-  const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
+  const { loginWithRedirect, logout, isAuthenticated, user, isLoading } =
+    useAuth0();
   const cartItems = useSelector((state) => state.cart.cart);
   const favItems = useSelector((state) => state.favorite.favorites);
 
@@ -52,15 +53,19 @@ const Header = () => {
           <button onClick={() => loginWithRedirect()}>Login</button>
         )}
         <p className="text-red-500 font-bold text-xs">
-          {isAuthenticated && (
-            <div className="flex flex-col justify-center items-center cursor-pointer">
-              <img
-                src={user.picture}
-                alt={user.name}
-                className="h-8 w-8 rounded-full"
-              />
-              <h2>{user.name}</h2>
-            </div>
+          {isLoading ? (
+            <span>Loading...</span>
+          ) : (
+            isAuthenticated && (
+              <div className="flex flex-col justify-center items-center cursor-pointer">
+                <img
+                  src={user.picture}
+                  alt={user.name}
+                  className="h-8 w-8 rounded-full"
+                />
+                <h2>{user.name}</h2>
+              </div>
+            )
           )}
         </p>
       </div>

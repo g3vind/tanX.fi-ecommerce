@@ -5,14 +5,21 @@ import { useDispatch } from "react-redux";
 import { addToCart } from "../features/cartSlice";
 import { addToFavorite } from "../features/favoriteSlice";
 import { Link } from "react-router-dom";
-
+import { useAuth0 } from "@auth0/auth0-react";
 const ProductDetailPage = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const [productDetail, setProductDetail] = useState([]);
   const [isFavourite, setIsFavourite] = useState(false);
+  const { isAuthenticated } = useAuth0();
 
   const handleFavourite = () => {
+    if (!isAuthenticated) {
+      // User is not authenticated, show alert or redirect to login page
+      alert("Please log in to add to favorites");
+
+      return;
+    }
     dispatch(
       addToFavorite({
         id: productDetail?.id,
@@ -27,7 +34,9 @@ const ProductDetailPage = () => {
   useEffect(() => {
     const fetchProductDetail = async () => {
       try {
-        const response = await fetch(`http://localhost:8080/products/${id}`);
+        const response = await fetch(
+          `https://tanxfi-data.onrender.com/products{id}`
+        );
         const data = await response.json();
         setProductDetail(data);
       } catch (error) {
@@ -39,6 +48,12 @@ const ProductDetailPage = () => {
   }, [id]);
 
   const handleAddToCart = () => {
+    if (!isAuthenticated) {
+      // User is not authenticated, show alert or redirect to login page
+      alert("Please log in to add to favorites");
+
+      return;
+    }
     dispatch(
       addToCart({
         id: productDetail?.id,
@@ -50,6 +65,12 @@ const ProductDetailPage = () => {
     );
   };
   const handleBuyNow = () => {
+    if (!isAuthenticated) {
+      // User is not authenticated, show alert or redirect to login page
+      alert("Please log in to add to favorites");
+
+      return;
+    }
     dispatch(
       addToCart({
         id: productDetail?.id,
