@@ -74,10 +74,18 @@ const ProductDetailPage = () => {
             <button
               onClick={handleFavourite}
               className=""
-              style={{ marginLeft: "330px" }}
+              style={{
+                marginLeft: "200px",
+                display: "flex",
+                alignItems: "center",
+              }}
             >
-              {isFavourite ? <IoHeartSharp /> : <IoHeartOutline />}
+              Add to Favorites
+              <span className="flex items-center ml-1">
+                {isFavourite ? <IoHeartSharp /> : <IoHeartOutline />}
+              </span>
             </button>
+
             <h1 className="my-4 text-3xl font-semibold text-black">
               {productDetail?.title}
             </h1>

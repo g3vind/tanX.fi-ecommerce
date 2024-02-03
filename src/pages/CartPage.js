@@ -36,7 +36,7 @@ export default function CartPage() {
             className="rounded-lg bg-white lg:col-span-8"
           >
             {cartItems?.map((product) => (
-              <div key={product.id} className="">
+              <div key={product.id} className="bg-gray-200 p-4">
                 <li className="flex py-6 sm:py-6 ">
                   <div className="flex-shrink-0">
                     <img
@@ -110,11 +110,11 @@ export default function CartPage() {
           {/* Order summary */}
           <section
             aria-labelledby="summary-heading"
-            className="mt-16 rounded-md bg-white lg:col-span-4 lg:mt-0 lg:p-0"
+            className="mt-10 rounded-md lg:col-span-4 lg:mt-0 lg:p-3 bg-gray-200"
           >
             <h2
               id="summary-heading"
-              className=" border-b border-gray-200 px-4 py-3 text-lg font-medium text-gray-900 sm:p-4"
+              className=" border-b border-gray-200 px-4 text-center py-3 text-lg font-medium text-gray-900 sm:p-4"
             >
               Price Details
             </h2>
